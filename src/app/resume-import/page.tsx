@@ -1,8 +1,15 @@
 "use client";
 import { getHasUsedAppBefore } from "lib/redux/local-storage";
-import { ResumeDropzone } from "components/ResumeDropzone";
+import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+
+// Avoid importing ResumeDropzone on the server to prevent pdfjs-dist from
+// being evaluated during prerender (DOMMatrix is not available in Node).
+const ResumeDropzone = dynamic(
+  () => import("components/ResumeDropzone").then((m) => m.ResumeDropzone),
+  { ssr: false }
+);
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);

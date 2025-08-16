@@ -1,16 +1,21 @@
 "use client";
 import { useState, useEffect } from "react";
-import { readPdf } from "lib/parse-resume-from-pdf/read-pdf";
 import type { TextItems } from "lib/parse-resume-from-pdf/types";
 import { groupTextItemsIntoLines } from "lib/parse-resume-from-pdf/group-text-items-into-lines";
 import { groupLinesIntoSections } from "lib/parse-resume-from-pdf/group-lines-into-sections";
 import { extractResumeFromSections } from "lib/parse-resume-from-pdf/extract-resume-from-sections";
-import { ResumeDropzone } from "components/ResumeDropzone";
+import dynamic from "next/dynamic";
 import { cx } from "lib/cx";
 import { Heading, Link, Paragraph } from "components/documentation";
 import { ResumeTable } from "resume-parser/ResumeTable";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { ResumeParserAlgorithmArticle } from "resume-parser/ResumeParserAlgorithmArticle";
+
+// Avoid importing ResumeDropzone on the server (it pulls in pdfjs-dist)
+const ResumeDropzone = dynamic(
+  () => import("components/ResumeDropzone").then((m) => m.ResumeDropzone),
+  { ssr: false }
+);
 
 const RESUME_EXAMPLES = [
   {
@@ -45,7 +50,9 @@ export default function ResumeParser() {
 
   useEffect(() => {
     async function test() {
-      const textItems = await readPdf(fileUrl);
+  // Import pdf reader only on the client to prevent SSR from loading pdfjs-dist
+  const { readPdf } = await import("lib/parse-resume-from-pdf/read-pdf");
+  const textItems = await readPdf(fileUrl);
       setTextItems(textItems);
     }
     test();
