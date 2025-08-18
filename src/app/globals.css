@@ -1,4 +1,27 @@
-@import url("/fonts/fonts.css");
+/* Inlined from public/fonts/fonts.css to avoid @import resolution issues during build */
+/* Sans Serif Fonts */
+@font-face {font-family: "Roboto"; src: url("/fonts/Roboto-Regular.ttf");}
+@font-face {font-family: "Roboto"; src: url("/fonts/Roboto-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Lato"; src: url("/fonts/Lato-Regular.ttf");}
+@font-face {font-family: "Lato"; src: url("/fonts/Lato-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Montserrat"; src: url("/fonts/Montserrat-Regular.ttf");}
+@font-face {font-family: "Montserrat"; src: url("/fonts/Montserrat-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "OpenSans"; src: url("/fonts/OpenSans-Regular.ttf");}
+@font-face {font-family: "OpenSans"; src: url("/fonts/OpenSans-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Raleway"; src: url("/fonts/Raleway-Regular.ttf");}
+@font-face {font-family: "Raleway"; src: url("/fonts/Raleway-Bold.ttf"); font-weight: bold;}
+
+/* Serif Fonts */
+@font-face {font-family: "Caladea"; src: url("/fonts/Caladea-Regular.ttf");}
+@font-face {font-family: "Caladea"; src: url("/fonts/Caladea-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Lora"; src: url("/fonts/Lora-Regular.ttf");}
+@font-face {font-family: "Lora"; src: url("/fonts/Lora-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "RobotoSlab"; src: url("/fonts/RobotoSlab-Regular.ttf");}
+@font-face {font-family: "RobotoSlab"; src: url("/fonts/RobotoSlab-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "PlayfairDisplay"; src: url("/fonts/PlayfairDisplay-Regular.ttf");}
+@font-face {font-family: "PlayfairDisplay"; src: url("/fonts/PlayfairDisplay-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Merriweather"; src: url("/fonts/Merriweather-Regular.ttf");}
+@font-face {font-family: "Merriweather"; src: url("/fonts/Merriweather-Bold.ttf"); font-weight: bold;}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +33,7 @@
 
   /* Futuristic CTA variant */
   .btn-future {
-    @apply inline-flex items-center gap-2 rounded-full px-8 py-3 font-semibold text-white transition-all duration-300 relative isolate;
+    @apply relative inline-flex items-center gap-2 px-8 py-3 font-semibold text-white transition-all duration-300 rounded-full isolate;
     @apply bg-gradient-to-r from-[color:var(--theme-purple)] via-[#7a7fff] to-[color:var(--theme-blue)];
     text-shadow: 0 0 8px rgba(79, 197, 235, 0.45);
   }
@@ -72,7 +95,7 @@
 
 
 body {
-  @apply bg-white text-neutral-900 font-sans;
+  @apply font-sans bg-white text-neutral-900;
 }
 
 html.dark body {

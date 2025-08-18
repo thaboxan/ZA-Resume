@@ -1,0 +1,9 @@
+{
+  // Teach the CSS language service about Tailwind to silence @tailwind/@apply warnings
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}

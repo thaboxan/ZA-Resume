@@ -13,7 +13,7 @@ import { deepClone } from "lib/deep-clone";
 const INTERVAL_MS = 50; // 20 Intervals Per Second
 const CHARS_PER_INTERVAL = 10;
 // Auto Typing Time:
-//  10 CHARS_PER_INTERVAL -> ~1800 / (20*10) = 9s (let's go with 9s so it feels fast)
+//  10 CHARS_PER_INTERVAL -> ~1800 / (20*10) = 9s
 //  9 CHARS_PER_INTERVAL -> ~1800 / (20*9) = 10s
 //  8 CHARS_PER_INTERVAL -> ~1800 / (20*8) = 11s
 
@@ -60,7 +60,7 @@ export const AutoTypingResume = () => {
 
   return (
     <>
-  <ResumeIframeCSR documentSize="A4" scale={isLg ? 0.7 : 0.5}>
+      <ResumeIframeCSR documentSize="A4" scale={isLg ? 0.7 : 0.5}>
         <ResumePDF
           resume={resume}
           settings={{

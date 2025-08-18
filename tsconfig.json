@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,22 +18,38 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-  "plugins": [
+    "plugins": [
       {
         "name": "next"
       }
     ],
-  // Ensure TS uses this project's types to avoid cross-root React type conflicts
-  "typeRoots": ["./node_modules/@types"],
-  "types": ["react", "react-dom", "node"],
+    // Ensure TS uses this project's types to avoid cross-root React type conflicts
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "react",
+      "react-dom",
+      "node"
+    ],
     "baseUrl": "./src/app",
     // Path Mapping Doc: https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping
     "paths": {
-      "public/*": ["../../public/*"],
-      "*": ["*"]
+      "public/*": [
+        "../../public/*"
+      ],
+      "*": [
+        "*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "build/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "**/*.test.ts",
