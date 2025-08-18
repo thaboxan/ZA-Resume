@@ -24,10 +24,10 @@ export default function ImportResume() {
 
   return (
     <main>
-      <div className="mx-auto mt-14 max-w-3xl rounded-md border border-gray-200 px-10 py-10 text-center shadow-md">
+      <div className="max-w-3xl px-10 py-10 mx-auto text-center border border-gray-200 rounded-md shadow-md mt-14 dark:border-neutral-800 dark:bg-neutral-900/50">
         {!hasUsedAppBefore ? (
           <>
-            <h1 className="text-lg font-semibold text-gray-900">
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">
               Import data from an existing resume
             </h1>
             <ResumeDropzone
@@ -55,7 +55,7 @@ export default function ImportResume() {
                 <OrDivider />
               </>
             )}
-            <h1 className="font-semibold text-gray-900">
+            <h1 className="font-semibold text-gray-900 dark:text-neutral-100">
               Override data with a new resume
             </h1>
             <ResumeDropzone
@@ -71,9 +71,9 @@ export default function ImportResume() {
 
 const OrDivider = () => (
   <div className="mx-[-2.5rem] flex items-center pb-6 pt-8" aria-hidden="true">
-    <div className="flex-grow border-t border-gray-200" />
-    <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400">or</span>
-    <div className="flex-grow border-t border-gray-200" />
+    <div className="flex-grow border-t border-gray-200 dark:border-neutral-800" />
+    <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400 dark:text-gray-500">or</span>
+    <div className="flex-grow border-t border-gray-200 dark:border-neutral-800" />
   </div>
 );
 
@@ -86,7 +86,7 @@ const SectionWithHeadingAndCreateButton = ({
 }) => {
   return (
     <>
-      <p className="font-semibold text-gray-900">{heading}</p>
+  <p className="font-semibold text-gray-900 dark:text-neutral-100">{heading}</p>
       <div className="mt-5">
         <Link
           href="/resume-builder"

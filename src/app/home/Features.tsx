@@ -4,6 +4,8 @@ import featureUSSrc from "public/assets/feature-us.svg";
 import featurePrivacySrc from "public/assets/feature-privacy.svg";
 import featureOpenSourceSrc from "public/assets/feature-open-source.svg";
 import { Link } from "components/documentation";
+import { RevealOnScroll } from "components/animations/RevealOnScroll";
+import { Icon3D } from "components/animations/Icon3D";
 
 const FEATURES = [
   {
@@ -41,20 +43,20 @@ export const Features = () => {
     <section className="py-16 lg:py-36">
       <div className="mx-auto lg:max-w-4xl">
         <dl className="grid grid-cols-1 justify-items-center gap-y-8 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-16">
-          {FEATURES.map(({ src, title, text }) => (
-            <div className="px-2" key={title}>
-              <div className="relative w-96 self-center pl-16">
-                <dt className="text-2xl font-bold">
-                  <Image
-                    src={src}
-                    className="absolute left-0 top-1 h-12 w-12"
-                    alt="Feature icon"
-                  />
-                  {title}
-                </dt>
-                <dd className="mt-2">{text}</dd>
+          {FEATURES.map(({ src, title, text }, idx) => (
+            <RevealOnScroll key={title} delay={idx * 0.08}>
+              <div className="px-2">
+                <div className="relative w-96 self-center pl-16">
+                  <dt className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                    <Icon3D className="absolute left-0 top-1 h-12 w-12">
+                      <Image src={src} className="h-10 w-10" alt="" aria-hidden="true" />
+                    </Icon3D>
+                    {title}
+                  </dt>
+                  <dd className="mt-2 text-neutral-700 dark:text-neutral-300">{text}</dd>
+                </div>
               </div>
-            </div>
+            </RevealOnScroll>
           ))}
         </dl>
       </div>

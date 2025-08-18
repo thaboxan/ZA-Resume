@@ -116,13 +116,15 @@ const QAS = [
 
 export const QuestionsAndAnswers = () => {
   return (
-    <section className="mx-auto max-w-3xl divide-y divide-gray-300 lg:mt-4 lg:px-2">
-      <h2 className="text-center text-3xl font-bold">Questions & Answers</h2>
-      <div className="mt-6 divide-y divide-gray-300">
+    <section className="mx-auto max-w-3xl divide-y divide-gray-300 dark:divide-neutral-800 lg:mt-4 lg:px-2">
+      <h2 className="text-center text-3xl font-bold text-neutral-900 dark:text-neutral-100">Questions & Answers</h2>
+      <div className="mt-6 divide-y divide-gray-300 dark:divide-neutral-800">
         {QAS.map(({ question, answer }) => (
           <div key={question} className="py-6">
-            <h3 className="font-semibold leading-7">{question}</h3>
-            <div className="mt-3 grid gap-2 leading-7 text-gray-600">
+            <h3 className="font-semibold leading-7 text-neutral-900 dark:text-neutral-100">
+              {question}
+            </h3>
+            <div className="mt-3 grid gap-2 leading-7 text-gray-600 dark:text-gray-300">
               {answer}
             </div>
           </div>

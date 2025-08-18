@@ -18,7 +18,7 @@ export default function Error({
     <div className="mx-auto max-w-2xl p-6 text-center">
       <h2 className="text-2xl font-semibold text-red-600">{t("error.title") || "Something went wrong"}</h2>
       {error?.digest && (
-        <p className="mt-2 text-sm text-gray-500">Ref: {error.digest}</p>
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Ref: {error.digest}</p>
       )}
       <div className="mt-6 flex justify-center gap-3">
         <button

@@ -67,19 +67,19 @@ export const getBulletPointsFromLines = (lines: Lines): string[] => {
 };
 
 const getMostCommonBulletPoint = (str: string): string => {
-  const bulletToCount: { [bullet: string]: number } = BULLET_POINTS.reduce(
-    (acc: { [bullet: string]: number }, cur) => {
-      acc[cur] = 0;
-      return acc;
-    },
-    {}
-  );
+  // Use Set/Map to avoid relying on Object.prototype.hasOwnProperty
+  const bulletSet = new Set(BULLET_POINTS);
+  const counts = new Map<string, number>();
+  for (const b of BULLET_POINTS) counts.set(b, 0);
+
   let bulletWithMostCount = BULLET_POINTS[0];
   let bulletMaxCount = 0;
-  for (let char of str) {
-    if (bulletToCount.hasOwnProperty(char)) {
-      bulletToCount[char]++;
-      if (bulletToCount[char] > bulletMaxCount) {
+  for (const char of str) {
+    if (bulletSet.has(char)) {
+      const next = (counts.get(char) || 0) + 1;
+      counts.set(char, next);
+      if (next > bulletMaxCount) {
+        bulletMaxCount = next;
         bulletWithMostCount = char;
       }
     }

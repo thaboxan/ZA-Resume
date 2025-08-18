@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,13 +13,34 @@ export const TopNavBar = () => {
   const pathName = usePathname();
   const isHomePage = pathName === "/";
   const t = useT();
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialDark = stored ? stored === "dark" : prefersDark;
+    setDark(initialDark);
+    document.documentElement.classList.toggle("dark", initialDark);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    if (typeof document !== "undefined") {
+      document.documentElement.classList.toggle("dark", next);
+    }
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {}
+  };
 
   return (
     <header
       aria-label="Site Header"
       className={cx(
-        "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12",
-        isHomePage && "bg-dot"
+  "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12 dark:border-neutral-800",
+  isHomePage && "bg-dot dark:bg-neutral-900"
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
@@ -30,7 +53,7 @@ export const TopNavBar = () => {
             priority
           />
         </Link>
-        <nav
+  <nav
           aria-label="Site Nav Bar"
           className="flex items-center gap-2 text-sm font-medium"
         >
@@ -40,13 +63,26 @@ export const TopNavBar = () => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-1.5 py-2 text-gray-600 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4 dark:text-gray-300 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800"
               href={href}
             >
               {text}
             </Link>
           ))}
           <LanguageSelector />
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="ml-2 inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-neutral-800"
+            title={dark ? "Switch to light" : "Switch to dark"}
+            aria-label="Toggle dark mode"
+          >
+            {dark ? (
+              <MoonIcon className="h-5 w-5" />
+            ) : (
+              <SunIcon className="h-5 w-5" />
+            )}
+          </button>
           <div className="ml-1 mt-1">
             <iframe
               src="https://ghbtns.com/github-btn.html?user=thaboxan&repo=ZA-Resume&type=star&count=true"

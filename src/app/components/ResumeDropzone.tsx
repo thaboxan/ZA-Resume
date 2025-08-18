@@ -72,8 +72,9 @@ export const ResumeDropzone = ({
   };
 
   const onImportClick = async () => {
-    const resume = await parseResumeFromPdf(file.fileUrl);
-    const settings = deepClone(initialSettings);
+    try {
+      const resume = await parseResumeFromPdf(file.fileUrl);
+      const settings = deepClone(initialSettings);
 
     // Set formToShow settings based on uploaded resume if users have used the app before
     if (getHasUsedAppBefore()) {
@@ -90,8 +91,14 @@ export const ResumeDropzone = ({
       }
     }
 
-    saveStateToLocalStorage({ resume, settings });
-    router.push("/resume-builder");
+      saveStateToLocalStorage({ resume, settings });
+      router.push("/resume-builder");
+    } catch (err) {
+      console.error("Failed to parse PDF:", err);
+      alert(
+        "We couldn't parse that PDF. Please try a different file or export your resume as a standard text-based PDF."
+      );
+    }
   };
 
   return (

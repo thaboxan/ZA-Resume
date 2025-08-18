@@ -64,9 +64,9 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <section className="mx-auto -mt-2 px-8 pb-24">
-      <h2 className="mb-8 text-center text-3xl font-bold">
+      <h2 className="mb-8 text-center text-3xl font-bold text-neutral-900 dark:text-neutral-100">
         People{" "}
-        <Image src={heartSrc} alt="love" className="-mt-1 inline-block w-7" />{" "}
+        <Image src={heartSrc} alt="" aria-hidden="true" className="-mt-1 inline-block w-7" />{" "}
   ZA-Resume
       </h2>
       <div className="mx-auto mt-10 h-[235px] max-w-lg lg:h-[400px] lg:pt-28">
@@ -88,7 +88,7 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
                   }
                 }}
               >
-                <figure className="m-1 flex gap-5 rounded-3xl bg-white p-5 text-gray-900 lg:p-7">
+                <figure className="m-1 flex gap-5 rounded-3xl bg-white p-5 text-gray-900 lg:p-7 dark:bg-neutral-800 dark:text-neutral-100">
                   <Image
                     className="hidden h-24 w-24 select-none rounded-full lg:block"
                     src={src}
@@ -109,7 +109,7 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
                         >
                           •
                         </div>
-                        <div className="text-gray-600">{title}</div>
+                        <div className="text-gray-600 dark:text-gray-300">{title}</div>
                       </div>
                       <div className="flex gap-4 lg:hidden">
                         <Image
@@ -119,7 +119,7 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
                         />
                         <div>
                           <div className="font-semibold">{name}</div>
-                          <div className="text-gray-600">{title}</div>
+                          <div className="text-gray-600 dark:text-gray-300">{title}</div>
                         </div>
                       </div>
                     </figcaption>

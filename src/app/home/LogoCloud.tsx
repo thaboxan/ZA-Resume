@@ -18,7 +18,7 @@ const LOGOS = [
 // LogoCloud is disabled per issue: https://github.com/thaboxan/ZA-Resume/issues/7
 export const LogoCloud = () => (
   <section className="mt-14 lg:mt-10">
-    <h2 className="text-center font-semibold text-gray-500">
+  <h2 className="text-center font-semibold text-gray-500 dark:text-gray-400">
       Trusted by students and employees from top universities and companies
       worldwide
     </h2>

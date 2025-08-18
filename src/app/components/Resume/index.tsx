@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
 import { ResumePDF } from "components/Resume/ResumePDF";
 import {
@@ -19,6 +19,7 @@ import { NonEnglishFontsCSSLazyLoader } from "components/fonts/NonEnglishFontsCS
 
 export const Resume = () => {
   const [scale, setScale] = useState(0.8);
+  const [pdfReady, setPdfReady] = useState(false);
   const resume = useAppSelector(selectResume);
   const settings = useAppSelector(selectSettings);
   const document = useMemo(
@@ -28,6 +29,12 @@ export const Resume = () => {
 
   useRegisterReactPDFFont();
   useRegisterReactPDFHyphenationCallback(settings.fontFamily);
+
+  // Mount the PDF download control after fonts register effect runs
+  useEffect(() => {
+    const id = window.setTimeout(() => setPdfReady(true), 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   return (
     <>
@@ -48,13 +55,15 @@ export const Resume = () => {
               />
             </ResumeIframeCSR>
           </section>
-          <ResumeControlBarCSR
-            scale={scale}
-            setScale={setScale}
-            documentSize={settings.documentSize}
-            document={document}
-            fileName={resume.profile.name + " - CV"}
-          />
+          {pdfReady && (
+            <ResumeControlBarCSR
+              scale={scale}
+              setScale={setScale}
+              documentSize={settings.documentSize}
+              document={document}
+              fileName={resume.profile.name + " - CV"}
+            />
+          )}
         </div>
         <ResumeControlBarBorder />
       </div>

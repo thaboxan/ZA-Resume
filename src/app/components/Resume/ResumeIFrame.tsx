@@ -80,7 +80,7 @@ const ResumeIframe = ({
   const height = isA4 ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
 
   return (
-    <div
+  <div
       style={{
         maxWidth: `${width * scale}px`,
         maxHeight: `${height * scale}px`,
@@ -95,7 +95,7 @@ const ResumeIframe = ({
           height: `${height}px`,
           transform: `scale(${scale})`,
         }}
-        className={`origin-top-left bg-white shadow-lg`}
+        className={`origin-top-left bg-white shadow-lg dark:bg-white`}
       >
         <Frame
           style={{ width: "100%", height: "100%" }}

@@ -85,7 +85,7 @@ export default function ResumeParser() {
                 <article
                   key={idx}
                   className={cx(
-                    "flex-1 cursor-pointer rounded-md border-2 px-4 py-3 shadow-sm outline-none hover:bg-gray-50 focus:bg-gray-50",
+                    "flex-1 cursor-pointer rounded-md border-2 px-4 py-3 shadow-sm outline-none hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
                     example.fileUrl === fileUrl
                       ? "border-blue-400"
                       : "border-gray-300"
@@ -98,7 +98,7 @@ export default function ResumeParser() {
                   tabIndex={0}
                 >
                   <h1 className="font-semibold">Resume Example {idx + 1}</h1>
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                     {example.description}
                   </p>
                 </article>
