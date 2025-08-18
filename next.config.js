@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isVercel = !!process.env.VERCEL;
 const nextConfig = {
-  // Emit the Next.js build into a custom directory to avoid OneDrive/.next lock issues on Windows
-  // and to match places in the code that expect `build/` artifacts at runtime.
-  distDir: "build",
-  // Produce a minimal standalone server output for container/runtime usage (Dockerfile expects this)
-  output: "standalone",
   // Nextjs has an issue with pdfjs-dist which optionally uses the canvas package
   // for Node.js compatibility. This causes a "Module parse failed" error when
   // building the app. Since pdfjs-dist is only used on client side, we disable
@@ -31,5 +27,12 @@ const nextConfig = {
     return config;
   },
 };
+
+// On Vercel, use the default `.next` directory (required by the platform).
+// Locally (e.g., Windows + OneDrive), use a custom dir to avoid file lock issues.
+if (!isVercel) {
+  nextConfig.distDir = "build";
+  nextConfig.output = "standalone";
+}
 
 module.exports = nextConfig;
