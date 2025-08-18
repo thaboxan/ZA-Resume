@@ -18,8 +18,7 @@ export const TopNavBar = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialDark = stored ? stored === "dark" : prefersDark;
+    const initialDark = stored !== "light"; // default to dark
     setDark(initialDark);
     document.documentElement.classList.toggle("dark", initialDark);
   }, []);
