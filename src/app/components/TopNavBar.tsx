@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import logoSrc from "public/logo.svg";
 import { cx } from "lib/cx";
 import { useT } from "lib/i18n/Provider";
 import { LanguageSelector } from "components/LanguageSelector";
@@ -35,34 +33,34 @@ export const TopNavBar = () => {
   };
 
   return (
-    <header
+  <header
       aria-label="Site Header"
       className={cx(
-  "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12 dark:border-neutral-800",
-  isHomePage && "bg-dot dark:bg-neutral-900"
+        "sticky top-0 z-50 flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12 backdrop-blur shadow-sm ring-1 ring-black/5 supports-[backdrop-filter]:bg-white/70 dark:border-neutral-800 dark:ring-white/10 dark:supports-[backdrop-filter]:bg-neutral-900/70",
+        isHomePage && "bg-dot dark:bg-neutral-900"
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
-        <Link href="/">
+    <Link href="/" className="select-none">
           <span className="sr-only">ZA-Resume</span>
-          <Image
-            src={logoSrc}
-            alt="ZA-Resume Logo"
-            className="h-8 w-full"
-            priority
-          />
+          <span
+      className="text-primary block text-2xl font-extrabold uppercase tracking-tight drop-shadow-sm lg:text-3xl"
+            aria-label="ZA-Resume"
+          >
+            ZA-Resume
+          </span>
         </Link>
   <nav
           aria-label="Site Nav Bar"
           className="flex items-center gap-2 text-sm font-medium"
         >
-          {[
+      {[
             ["/resume-builder", t("nav.builder")],
             ["/resume-parser", t("nav.parser")],
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-gray-600 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4 dark:text-gray-300 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800"
+        className="rounded-md px-2.5 py-2 text-gray-700 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4 dark:text-gray-200 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800 font-semibold"
               href={href}
             >
               {text}

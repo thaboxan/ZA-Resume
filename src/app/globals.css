@@ -5,7 +5,44 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block px-6 py-2 font-semibold rounded-full shadow-sm bg-primary outline-theme-purple;
+  @apply inline-block px-6 py-2 font-semibold rounded-full shadow-sm bg-primary outline-theme-purple;
+  }
+
+  /* Futuristic CTA variant */
+  .btn-future {
+    @apply inline-flex items-center gap-2 rounded-full px-8 py-3 font-semibold text-white transition-all duration-300 relative isolate;
+    @apply bg-gradient-to-r from-[color:var(--theme-purple)] via-[#7a7fff] to-[color:var(--theme-blue)];
+    text-shadow: 0 0 8px rgba(79, 197, 235, 0.45);
+  }
+  .btn-future::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 9999px;
+    padding: 2px;
+    background: conic-gradient(from 0deg, rgba(93,82,217,0.6), rgba(79,197,235,0.6), rgba(93,82,217,0.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    z-index: -1;
+    animation: spin-slow 4s linear infinite;
+  }
+  .btn-future:hover {
+    filter: drop-shadow(0 0 20px rgba(79,197,235,0.35));
+    transform: translateY(-1px);
+  }
+  .btn-future:active {
+    transform: translateY(0);
+  }
+  .btn-future::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: radial-gradient(65% 65% at 50% 50%, rgba(79,197,235,0.22), transparent 70%);
+    filter: blur(10px);
+    z-index: -2;
   }
   .text-primary {
     @apply bg-gradient-to-r from-[color:var(--theme-purple)] to-[color:var(--theme-blue)] bg-clip-text text-transparent !important;
@@ -22,6 +59,15 @@
   .within-outline-theme-purple {
     @apply focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[color:var(--theme-purple)] hover:opacity-80 hover:outline-[color:var(--theme-purple)];
   }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-future::before { animation: none; }
 }
 
 

@@ -2,6 +2,10 @@ import "globals.css";
 import { TopNavBar } from "components/TopNavBar";
 import { Analytics } from "@vercel/analytics/react";
 import { I18nProvider } from "lib/i18n/Provider";
+import { Footer } from "components/Footer";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
 
 export const metadata = {
   title: "ZA-Resume - Free South African CV Builder and Parser",
@@ -16,15 +20,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-ZA" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+  <head />
+  <body className={inter.className}>
         {/* Prevent theme flash */}
         <script
           dangerouslySetInnerHTML={{
@@ -44,6 +41,7 @@ export default function RootLayout({
         <I18nProvider>
           <TopNavBar />
           {children}
+          <Footer />
         </I18nProvider>
         <Analytics />
       </body>

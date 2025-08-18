@@ -49,7 +49,7 @@ export const Hero = () => {
         >
           {t("hero.subtitle")}
         </motion.p>
-        <Link href="/resume-import" className="btn-primary mt-6 lg:mt-14">
+  <Link href="/resume-import" className="btn-future mt-6 lg:mt-14">
           {t("hero.cta")} <span aria-hidden="true">→</span>
         </Link>
   <p className="ml-6 mt-3 text-sm text-gray-600 dark:text-gray-300">{t("hero.noSignup")}</p>
