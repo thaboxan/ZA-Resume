@@ -29,47 +29,65 @@ export const readPdf = async (fileUrl: string): Promise<TextItems> => {
   for (let i = 1; i <= pdfFile.numPages; i++) {
     // Parse each page into text content
     const page = await pdfFile.getPage(i);
-    const textContent = await page.getTextContent();
+  const textContent = await page.getTextContent();
 
     // Wait for font data to be loaded
     await page.getOperatorList();
     const commonObjs = page.commonObjs;
 
     // Convert Pdfjs TextItem type to new TextItem type
-    const pageTextItems = textContent.items.map((item) => {
-      const {
-        str: text,
-        dir, // Remove text direction
-        transform,
-        fontName: pdfFontName,
-        ...otherProps
-      } = item as PdfjsTextItem;
+    const pageTextItems = textContent.items
+      .map((raw) => {
+        // Defensive guards: ensure we only process valid TextItem objects
+        const item = raw as unknown as Partial<PdfjsTextItem> | undefined | null;
+        if (!item || typeof item !== "object") return undefined;
+        const text = (item as Partial<PdfjsTextItem>).str as unknown as string;
+        const transform = (item as Partial<PdfjsTextItem>).transform as unknown as number[] | undefined;
+        if (typeof text !== "string" || !Array.isArray(transform) || transform.length < 6) {
+          return undefined;
+        }
+        const pdfFontName = (item as Partial<PdfjsTextItem>).fontName as unknown as string | undefined;
 
-      // Extract x, y position of text item from transform.
-      // As a side note, origin (0, 0) is bottom left.
-      // Reference: https://github.com/mozilla/pdf.js/issues/5643#issuecomment-496648719
-      const x = transform[4];
-      const y = transform[5];
+        // Extract x, y position of text item from transform.
+        // As a side note, origin (0, 0) is bottom left.
+        // Reference: https://github.com/mozilla/pdf.js/issues/5643#issuecomment-496648719
+        const x = transform[4];
+        const y = transform[5];
 
-      // Use commonObjs to convert font name to original name (e.g. "GVDLYI+Arial-BoldMT")
-      // since non system font name by default is a loaded name, e.g. "g_d8_f1"
-      // Reference: https://github.com/mozilla/pdf.js/pull/15659
-      const fontObj = commonObjs.get(pdfFontName);
-      const fontName = fontObj.name;
+        // Use commonObjs to convert font name to original name (e.g. "GVDLYI+Arial-BoldMT")
+        // since non system font name by default is a loaded name, e.g. "g_d8_f1"
+        // Reference: https://github.com/mozilla/pdf.js/pull/15659
+        let fontName = typeof pdfFontName === "string" ? pdfFontName : "";
+        try {
+          const fontObj = pdfFontName ? (commonObjs as any)?.get?.(pdfFontName) : undefined;
+          if (fontObj && typeof fontObj.name === "string") {
+            fontName = fontObj.name;
+          }
+        } catch {
+          // Fallback to loaded font name if commonObjs lookup fails
+        }
 
-      // pdfjs reads a "-" as "-­‐" in the resume example. This is to revert it.
-      // Note "-­‐" is "-&#x00AD;‐" with a soft hyphen in between. It is not the same as "--"
-      const newText = text.replace(/-­‐/g, "-");
+        // pdfjs reads a "-" as "-­‐" in the resume example. This is to revert it.
+        // Note "-­‐" is "-&#x00AD;‐" with a soft hyphen in between. It is not the same as "--"
+        const newText = text.replace(/-­‐/g, "-");
 
-      const newItem = {
-        ...otherProps,
-        fontName,
-        text: newText,
-        x,
-        y,
-      };
-      return newItem;
-    });
+        // Pick only the fields we actually need; avoid object rest/spread on pdfjs objects
+        const width = (item as any)?.width ?? 0;
+        const height = (item as any)?.height ?? 0;
+        const hasEOL = Boolean((item as any)?.hasEOL);
+
+        const newItem: TextItem = {
+          text: newText,
+          x,
+          y,
+          width,
+          height,
+          fontName,
+          hasEOL,
+        };
+        return newItem;
+      })
+      .filter((v): v is TextItem => Boolean(v));
 
     // Some pdf's text items are not in order. This is most likely a result of creating it
     // from design softwares, e.g. canvas. The commented out method can sort pageTextItems
