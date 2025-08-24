@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+
+    environment {
+        // Use your Jenkins credential ID for the GitHub PAT
+        GITHUB_PAT = credentials('github-pat')
+        // Email recipient
+        DEV_EMAIL = 'dev@thabojafta.co.za'
+    }
+
+    options {
+        // Keep build logs for portfolio reference
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timestamps() // Adds timestamps to console output
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out code from GitHub...'
+                git branch: 'main',
+                    url: 'https://github.com/thaboxan/ZA-Resume.git',
+                    credentialsId: 'github-pat'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Installing dependencies and building...'
+                // Example for Node.js project; modify if using other tech
+                sh 'npm install || echo "npm install skipped if not Node project"'
+                sh 'npm run build || echo "npm run build skipped if not Node project"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'npm test || echo "npm test skipped if not Node project"'
+            }
+        }
+
+        stage('Version & Changelog') {
+            steps {
+                script {
+                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    def commitMsg = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                    echo "Build Version: ${commitHash}"
+                    echo "Latest Commit: ${commitMsg}"
+                }
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                echo 'Archiving build outputs...'
+                archiveArtifacts artifacts: '**/dist/**, **/target/**', allowEmptyArchive: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build succeeded!'
+            mail to: "${DEV_EMAIL}",
+                 subject: "Jenkins Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Good news! The build completed successfully.\n\nCheck console output at: ${env.BUILD_URL}"
+        }
+        failure {
+            echo 'Build failed!'
+            mail to: "${DEV_EMAIL}",
+                 subject: "Jenkins Build FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Oops! The build failed.\n\nCheck console output at: ${env.BUILD_URL}"
+        }
+    }
+}
