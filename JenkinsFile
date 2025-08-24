@@ -7,7 +7,7 @@ pipeline {
         // Email recipient
         DEV_EMAIL = 'dev@thabojafta.co.za'
     // Optional: set a from address used by email-ext
-    FROM_EMAIL = 'jenkins@thabojafta.co.za'
+    FROM_EMAIL = 'dev@thabojafta.co.za'
     }
 
     options {
