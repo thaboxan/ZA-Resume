@@ -63,7 +63,7 @@ ZA-Resume is created with the NextJS web framework and follows its project struc
 4. Start a development server `npm run dev`
 5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to see ZA-Resume locally
 
-### Method 2: Docker
+### Method 2: DockerR
 
 1. Download the repo `git clone https://github.com/thaboxan/ZA-Resume.git`
 2. Change the directory `cd ZA-Resume`
