@@ -6,6 +6,8 @@ pipeline {
         GITHUB_PAT = credentials('github-pat')
         // Email recipient
         DEV_EMAIL = 'dev@thabojafta.co.za'
+    // Optional: set a from address used by email-ext
+    FROM_EMAIL = 'jenkins@thabojafta.co.za'
     }
 
     options {
@@ -62,16 +64,38 @@ pipeline {
 
     post {
         success {
-            echo 'Build succeeded!'
-            mail to: "${DEV_EMAIL}",
-                 subject: "Jenkins Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Good news! The build completed successfully.\n\nCheck console output at: ${env.BUILD_URL}"
+            echo 'Build succeeded! Sending success email…'
+            script {
+                def subj = "Jenkins Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                def body = "Good news! The build completed successfully.\n\nCheck console output at: ${env.BUILD_URL}"
+                try {
+                    mail to: "${DEV_EMAIL}", subject: subj, body: body
+                } catch (e) {
+                    echo "mail() failed: ${e}"
+                    try {
+                        emailext(to: "${DEV_EMAIL}", subject: subj, body: body, mimeType: 'text/plain', replyTo: "${FROM_EMAIL}", from: "${FROM_EMAIL}")
+                    } catch (e2) {
+                        echo "emailext() failed: ${e2}"
+                    }
+                }
+            }
         }
         failure {
-            echo 'Build failed!'
-            mail to: "${DEV_EMAIL}",
-                 subject: "Jenkins Build FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Oops! The build failed.\n\nCheck console output at: ${env.BUILD_URL}"
+            echo 'Build failed! Sending failure email…'
+            script {
+                def subj = "Jenkins Build FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                def body = "Oops! The build failed.\n\nCheck console output at: ${env.BUILD_URL}"
+                try {
+                    mail to: "${DEV_EMAIL}", subject: subj, body: body
+                } catch (e) {
+                    echo "mail() failed: ${e}"
+                    try {
+                        emailext(to: "${DEV_EMAIL}", subject: subj, body: body, mimeType: 'text/plain', attachLog: true, replyTo: "${FROM_EMAIL}", from: "${FROM_EMAIL}")
+                    } catch (e2) {
+                        echo "emailext() failed: ${e2}"
+                    }
+                }
+            }
         }
     }
 }
