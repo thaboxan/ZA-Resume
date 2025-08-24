@@ -28,7 +28,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Installing dependencies and building...'
-                // Example for Node.js project; modify if using other tech
+                //  Node.js ;
                 sh 'npm install || echo "npm install skipped if not Node project"'
                 sh 'npm run build || echo "npm run build skipped if not Node project"'
             }
