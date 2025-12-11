@@ -11,17 +11,17 @@ export const TopNavBar = () => {
     <header
       aria-label="Site Header"
       className={cx(
-        "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12",
+        "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-4 sm:px-6 md:px-8 lg:px-12",
         isHomePage && "bg-dot"
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
         <Link href="/">
-          <span className="text-xl font-bold text-gray-900">CareerCraft</span>
+          <span className="text-lg font-bold text-gray-900 sm:text-xl">CareerCraft</span>
         </Link>
         <nav
           aria-label="Site Nav Bar"
-          className="flex items-center gap-2 text-sm font-medium"
+          className="flex items-center gap-1 text-sm font-medium sm:gap-2"
         >
           {[
             ["/resume-builder", "Builder"],
@@ -29,13 +29,13 @@ export const TopNavBar = () => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-2 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 sm:px-3 lg:px-4"
               href={href}
             >
               {text}
             </Link>
           ))}
-          <div className="ml-1 mt-1">
+          <div className="ml-1 mt-1 hidden sm:block">
             <iframe
               src="https://ghbtns.com/github-btn.html?user=thaboxan&repo=ZA-Resume&type=star&count=true"
               width="100"

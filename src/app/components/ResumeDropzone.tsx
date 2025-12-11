@@ -97,9 +97,9 @@ export const ResumeDropzone = ({
   return (
     <div
       className={cx(
-        "flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 ",
+        "flex justify-center rounded-md border-2 border-dashed border-gray-300 px-4 sm:px-6",
         isHoveredOnDropzone && "border-sky-400",
-        playgroundView ? "pb-6 pt-4" : "py-12",
+        playgroundView ? "pb-6 pt-4" : "py-8 sm:py-12",
         className
       )}
       onDragOver={(event) => {
@@ -118,7 +118,7 @@ export const ResumeDropzone = ({
         {!playgroundView && (
           <Image
             src={addPdfSrc}
-            className="mx-auto h-14 w-14"
+            className="mx-auto h-12 w-12 sm:h-14 sm:w-14"
             alt="Add pdf"
             aria-hidden="true"
             priority
@@ -129,19 +129,19 @@ export const ResumeDropzone = ({
             <p
               className={cx(
                 "pt-3 text-gray-700",
-                !playgroundView && "text-lg font-semibold"
+                !playgroundView && "text-base font-semibold sm:text-lg"
               )}
             >
               Browse a pdf file or drop it here
             </p>
-            <p className="flex text-sm text-gray-500">
-              <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
-              File data is used locally and never leaves your browser
+            <p className="flex justify-center text-xs text-gray-500 sm:text-sm">
+              <LockClosedIcon className="mr-1 mt-0.5 h-3 w-3 flex-shrink-0 text-gray-400 sm:mt-1" />
+              <span>File data is used locally and never leaves your browser</span>
             </p>
           </>
         ) : (
-          <div className="flex items-center justify-center gap-3 pt-3">
-            <div className="pl-7 font-semibold text-gray-900">
+          <div className="flex flex-col items-center justify-center gap-3 pt-3 sm:flex-row">
+            <div className="break-all px-2 text-sm font-semibold text-gray-900 sm:pl-7 sm:text-base">
               {file.name} - {getFileSizeString(file.size)}
             </div>
             <button
@@ -159,7 +159,7 @@ export const ResumeDropzone = ({
             <>
               <label
                 className={cx(
-                  "within-outline-theme-purple cursor-pointer rounded-full px-6 pb-2.5 pt-2 font-semibold shadow-sm",
+                  "within-outline-theme-purple cursor-pointer rounded-full px-4 pb-2.5 pt-2 text-sm font-semibold shadow-sm sm:px-6 sm:text-base",
                   playgroundView ? "border" : "bg-primary"
                 )}
               >
@@ -172,7 +172,7 @@ export const ResumeDropzone = ({
                 />
               </label>
               {hasNonPdfFile && (
-                <p className="mt-6 text-red-400">Only pdf file is supported</p>
+                <p className="mt-4 text-sm text-red-400 sm:mt-6 sm:text-base">Only pdf file is supported</p>
               )}
             </>
           ) : (
@@ -180,13 +180,13 @@ export const ResumeDropzone = ({
               {!playgroundView && (
                 <button
                   type="button"
-                  className="btn-primary"
+                  className="btn-primary w-full text-sm sm:w-auto sm:text-base"
                   onClick={onImportClick}
                 >
                   Import and Continue <span aria-hidden="true">→</span>
                 </button>
               )}
-              <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
+              <p className={cx("text-xs text-gray-500 sm:text-sm", !playgroundView && "mt-4 sm:mt-6")}>
                 Note: {!playgroundView ? "Import" : "Parser"} works best on
                 single column resume
               </p>

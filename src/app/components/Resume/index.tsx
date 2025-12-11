@@ -34,8 +34,8 @@ export const Resume = () => {
       <NonEnglishFontsCSSLazyLoader />
       <div className="relative flex justify-center md:justify-start">
         <FlexboxSpacer maxWidth={50} className="hidden md:block" />
-        <div className="relative">
-          <section className="h-[calc(100vh-var(--top-nav-bar-height)-var(--resume-control-bar-height))] overflow-hidden md:p-[var(--resume-padding)]">
+        <div className="relative w-full md:w-auto">
+          <section className="h-[50vh] overflow-hidden p-4 sm:h-[60vh] sm:p-6 md:h-[calc(100vh-var(--top-nav-bar-height)-var(--resume-control-bar-height))] md:p-[var(--resume-padding)]">
             <ResumeIframeCSR
               documentSize={settings.documentSize}
               scale={scale}

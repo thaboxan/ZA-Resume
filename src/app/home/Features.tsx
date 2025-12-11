@@ -38,30 +38,30 @@ const FEATURES = [
 
 export const Features = () => {
   return (
-    <section className="py-16 lg:py-24">
-      <div className="mx-auto lg:max-w-6xl">
-        <dl className="grid grid-cols-1 justify-items-center gap-6 lg:grid-cols-2 lg:gap-8">
+    <section className="px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl lg:max-w-6xl">
+        <dl className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
           {FEATURES.map(({ src, title, text }) => (
-            <div className="w-full max-w-md px-2 lg:max-w-none" key={title}>
-              <div className="h-full rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg">
+            <div className="w-full" key={title}>
+              <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg sm:rounded-2xl sm:p-8">
                 <div className="flex flex-col">
-                  <dt className="flex items-start gap-4">
+                  <dt className="flex items-start gap-3 sm:gap-4">
                     <div className="flex-shrink-0">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gray-100">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100 sm:h-14 sm:w-14 sm:rounded-xl">
                         <Image
                           src={src}
-                          className="h-8 w-8"
+                          className="h-7 w-7 sm:h-8 sm:w-8"
                           alt="Feature icon"
                         />
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 lg:text-2xl">
+                      <h3 className="text-lg font-bold text-gray-900 sm:text-xl lg:text-2xl">
                         {title}
                       </h3>
                     </div>
                   </dt>
-                  <dd className="mt-4 leading-relaxed text-gray-600">
+                  <dd className="mt-3 text-sm leading-relaxed text-gray-600 sm:mt-4 sm:text-base">
                     {text}
                   </dd>
                 </div>
