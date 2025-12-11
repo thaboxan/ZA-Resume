@@ -12,7 +12,7 @@ const ResumeControlBar = ({
   scale,
   setScale,
   documentSize,
-  document,
+  document: resumeDocument,
   fileName,
 }: {
   scale: number;
@@ -26,12 +26,12 @@ const ResumeControlBar = ({
     documentSize,
   });
 
-  const [instance, update] = usePDF({ document });
+  const [instance, update] = usePDF({ document: resumeDocument });
 
   // Hook to update pdf when document changes
   useEffect(() => {
     update();
-  }, [update, document]);
+  }, [update, resumeDocument]);
 
   // Enhanced download handler for mobile compatibility
   const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
