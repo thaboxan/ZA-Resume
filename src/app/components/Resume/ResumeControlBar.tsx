@@ -47,13 +47,13 @@ const ResumeControlBar = ({
         const url = URL.createObjectURL(pdfBlob);
         
         // Open in new window for iOS
-        const link = document.createElement('a');
+        const link = globalThis.document.createElement('a');
         link.href = url;
         link.download = fileName;
         link.target = '_blank';
-        document.body.appendChild(link);
+        globalThis.document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link);
+        globalThis.document.body.removeChild(link);
         
         // Clean up
         setTimeout(() => URL.revokeObjectURL(url), 100);
