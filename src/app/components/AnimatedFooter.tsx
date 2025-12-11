@@ -149,7 +149,7 @@ export const AnimatedFooter = () => {
   }, []);
 
   return (
-    <footer className="relative h-[400px] w-full overflow-hidden bg-black lg:h-[600px]">
+    <footer className="relative h-[300px] w-full overflow-hidden bg-black sm:h-[400px] lg:h-[600px]">
       <div
         ref={containerRef}
         className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2"
@@ -167,9 +167,9 @@ export const AnimatedFooter = () => {
       </div>
       
       {/* Footer content overlay */}
-      <div className="relative z-10 flex h-full items-end justify-center pb-8">
-        <div className="text-center">
-          <p className="text-sm text-white/60">
+      <div className="relative z-10 flex h-full items-end justify-center pb-6 sm:pb-8">
+        <div className="px-4 text-center">
+          <p className="text-xs text-white/60 sm:text-sm">
             © {new Date().getFullYear()} CareerCraft. All rights reserved.
           </p>
         </div>
